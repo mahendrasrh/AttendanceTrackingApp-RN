@@ -1,24 +1,46 @@
 {
   "expo": {
-    "name": "Attendance-App",
-    "slug": "Attendance-App",
+    "name": "Track-Rest",
+    "slug": "track-rest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
+    "scheme": "track-rest",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "extra": {
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "a74aab8e-f184-4e83-aca5-02285b616151"
       }
     },
-    "scheme": "attendanceapp",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "bundleIdentifier": "com.yourname.attendanceapp",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app tracks your location to mark attendance.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Location is required for background attendance tracking.",
+        "UIBackgroundModes": [
+          "location"
+        ]
+      }
     },
     "android": {
       "package": "com.yourname.attendanceapp",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "foregroundService": {
+        "notificationTitle": "Track-Rest",
+        "notificationBody": "Location tracking is active for attendance"
+      },
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -26,7 +48,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "usesCleartextTraffic": true
     },
     "web": {
       "bundler": "metro",
@@ -35,6 +58,7 @@
     },
     "plugins": [
       "expo-router",
+      "expo-location",
       [
         "expo-splash-screen",
         {

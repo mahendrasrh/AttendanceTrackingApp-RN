@@ -70,3 +70,33 @@ export const updateEmployeeService = async (
 
   return response.data;
 };
+
+
+export const clockInService = async (payload: {
+  latitude: number;
+  longitude: number;
+}) => {
+  const response = await api.post('/api/clock_in', payload);
+  return response.data;
+};
+
+export const clockOutService = async (payload: {
+  latitude: number;
+  longitude: number;
+}) => {
+  const response = await api.post('/api/clock_out', payload);
+  return response.data;
+};
+export const pingLocationService = async (payload: {
+  latitude: number;
+  longitude: number;
+}) => {
+  const response = await api.post('/api/tracking/ping', payload);
+  return response.data;
+};
+export const getEmployeeLocationService = async (employeeId: any) => {
+  const response = await api.get(
+    `/api/employee_route/by-employee/${employeeId}`
+  );
+  return response.data;
+};
