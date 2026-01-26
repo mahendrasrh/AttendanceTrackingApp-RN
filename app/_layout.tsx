@@ -44,6 +44,14 @@ export default function RootLayout() {
         />
 
         <Stack.Screen 
+          name="login" 
+          options={{ 
+            headerShown: false, 
+            animation: 'slide_from_right'
+          }} 
+        />
+
+        <Stack.Screen 
           name="update-geolocation" 
           options={{ 
             headerShown: false, 

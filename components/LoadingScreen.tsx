@@ -27,7 +27,7 @@ const LoadingScreen = () => {
 
       {/* App Name */}
       <Text className="text-white text-4xl font-extrabold tracking-wide">
-        Track Rest
+       Work Trace
       </Text>
 
       {/* Tagline */}
