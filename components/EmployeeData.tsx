@@ -290,16 +290,16 @@ const EmployeeLocationView = ({ emp }: { emp: Employee }) => {
           <Ionicons name="chevron-back" size={26} color="white" />
         </TouchableOpacity>
 
-        <Text className="text-white text-lg font-semibold">
+        <Text className="text-white mr-6 text-lg font-semibold">
           Employee Details
         </Text>
 
         <TouchableOpacity onPress={handleFetchLocation}>
-          {locationLoading ? (
+          {/* {locationLoading ? (
             <ActivityIndicator color="#fff" />
           ) : (
             <Ionicons name="location-outline" size={22} color="white" />
-          )}
+          )} */}
         </TouchableOpacity>
       </View>
 

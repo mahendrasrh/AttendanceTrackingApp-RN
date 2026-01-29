@@ -90,10 +90,11 @@ const LoginScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
-      className="flex-1 bg-white"
-    >
+   <KeyboardAvoidingView
+  behavior="padding"
+  keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 60}
+  className="flex-1 bg-white"
+>
       {/* HEADER */}
       <LinearGradient
         colors={["#00188F", "#4c1d95"]}

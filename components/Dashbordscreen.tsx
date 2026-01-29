@@ -6,12 +6,16 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as Location from 'expo-location';
+
+import { requestLocationPermissions } from '../services/locationPermission';
 
 const { width } = Dimensions.get('window');
 const COLUMN_WIDTH = (width - 48) / 2;
@@ -41,6 +45,7 @@ const DashboardScreen = () => {
     { id: 8, title: 'Settings', icon: 'settings-outline', provider: Ionicons, color: '#64748b', route: '/Settings' },
   ];
 
+  // 🔐 Load user data
   useEffect(() => {
     const loadUserData = async () => {
       const storedUsername = await AsyncStorage.getItem('username');
@@ -51,10 +56,31 @@ const DashboardScreen = () => {
     loadUserData();
   }, []);
 
+  // 📍 REQUEST LOCATION PERMISSION (ANDROID SAFE)
+  useEffect(() => {
+    const initLocationPermission = async () => {
+      const granted = await requestLocationPermissions();
+      if (!granted) {
+        Alert.alert(
+          'Permission Required',
+          'Location permission is required for attendance tracking'
+        );
+        return;
+      }
+
+      // ✅ Permission granted — safe to access location if needed
+      // const location = await Location.getCurrentPositionAsync({});
+      // console.log('Current location:', location);
+    };
+
+    initLocationPermission();
+  }, []);
+
   // Filter menu items for "user" role
-  const visibleMenuItems = role === 'user'
-    ? menuItems.filter(item => [1, 2, 3, 4, 7].includes(item.id))
-    : menuItems;
+  const visibleMenuItems =
+    role === 'user'
+      ? menuItems.filter(item => [1, 2, 3, 4, 7].includes(item.id))
+      : menuItems;
 
   const handleMenuPress = (route?: string) => {
     if (route) router.push(route as any);
@@ -91,41 +117,39 @@ const DashboardScreen = () => {
       <View className="flex-1 -mt-10 bg-white rounded-t-[40px] px-4 pt-8">
         <ScrollView showsVerticalScrollIndicator={false}>
           <View className="flex-row flex-wrap justify-between pb-24">
-           {visibleMenuItems.map(item => {
-  // Disable these specific IDs
-  const isDisabled = [1, 2, 4, 7, 8].includes(item.id);
+            {visibleMenuItems.map(item => {
+              const isDisabled = [1, 2, 4, 7, 8].includes(item.id);
 
-  return (
-    <TouchableOpacity
-      key={item.id}
-      onPress={() => !isDisabled && handleMenuPress(item.route)}
-      disabled={isDisabled}
-      className={`bg-white rounded-3xl mb-4 items-center justify-center ${
-        isDisabled ? 'opacity-50' : ''
-      }`} // visually show disabled
-      style={{
-        width: COLUMN_WIDTH,
-        height: COLUMN_WIDTH * 0.8,
-        elevation: 6,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 10,
-      }}
-    >
-      <View
-        className="p-4 rounded-2xl mb-3"
-        style={{ backgroundColor: `${item.color}15` }}
-      >
-        <item.provider name={item.icon as any} size={32} color={item.color} />
-      </View>
-      <Text className="text-gray-600 font-medium text-center px-2">
-        {item.title}
-      </Text>
-    </TouchableOpacity>
-  );
-})}
-
+              return (
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() => !isDisabled && handleMenuPress(item.route)}
+                  disabled={isDisabled}
+                  className={`bg-white rounded-3xl mb-4 items-center justify-center ${
+                    isDisabled ? 'opacity-50' : ''
+                  }`}
+                  style={{
+                    width: COLUMN_WIDTH,
+                    height: COLUMN_WIDTH * 0.8,
+                    elevation: 6,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 10,
+                  }}
+                >
+                  <View
+                    className="p-4 rounded-2xl mb-3"
+                    style={{ backgroundColor: `${item.color}15` }}
+                  >
+                    <item.provider name={item.icon as any} size={32} color={item.color} />
+                  </View>
+                  <Text className="text-gray-600 font-medium text-center px-2">
+                    {item.title}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </ScrollView>
       </View>
