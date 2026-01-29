@@ -222,7 +222,7 @@ const AddEmployee = () => {
               valueField="value"
               placeholder="Select Position"
               value={formData.position}
-              onChange={(item) =>
+              onChange={(item:any) =>
                 handleInputChange('position', item.value)
               }
             />

@@ -12,7 +12,7 @@ const api = axios.create({
 
 /* ---------------- REQUEST INTERCEPTOR ---------------- */
 api.interceptors.request.use(
-  async (config) => {
+  async (config:any) => {
     const token = await AsyncStorage.getItem('token');
 
     if (token) {
@@ -34,7 +34,7 @@ api.interceptors.request.use(
 
     return config;
   },
-  (error) => {
+  (error:any) => {
     console.error('❌ REQUEST ERROR 👉', error);
     return Promise.reject(error);
   }
@@ -42,7 +42,7 @@ api.interceptors.request.use(
 
 /* ---------------- RESPONSE INTERCEPTOR ---------------- */
 api.interceptors.response.use(
-  (response) => {
+  (response:any) => {
     console.log('✅ API RESPONSE');
     console.log('URL 👉', response.config.url);
     console.log('STATUS 👉', response.status);
