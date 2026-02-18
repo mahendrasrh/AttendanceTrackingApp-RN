@@ -5,16 +5,20 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-
     "scheme": "Work Trace",
     "userInterfaceStyle": "automatic",
-
     "newArchEnabled": false,
-
     "ios": {
-      "bundleIdentifier": "com.yourname.worktrace"
+      "bundleIdentifier": "com.worktrace.app",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to track attendance.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses your location to track attendance even when in the background."
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyCJj6ureATirX-BcKNDIkEV0TlMWs-wnmA"
+      }
     },
-
     "android": {
       "package": "com.yourname.worktrace",
       "permissions": [
@@ -29,20 +33,17 @@
         }
       }
     },
-
     "extra": {
-       "API_BASE_URL": "https://worktrace.in/attendanceTracking-Backend",
+      "API_BASE_URL": "https://worktrace.in/attendanceTracking-Backend",
       "router": {
         "origin": false
       }
     },
-
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/icon.png"
     },
-
     "plugins": [
       "expo-router",
       [
@@ -58,7 +59,6 @@
         }
       ]
     ],
-
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
