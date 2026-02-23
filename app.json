@@ -1,13 +1,13 @@
 {
   "expo": {
     "name": "Work Trace",
-    "slug": "Work Trace",
+    "slug": "WorkTrace",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "Work Trace",
+    "scheme": "work-trace",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "ios": {
       "bundleIdentifier": "com.worktrace.app",
       "supportsTablet": true,
@@ -37,6 +37,9 @@
       "API_BASE_URL": "https://worktrace.in/attendanceTracking-Backend",
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "5f025558-e9dc-4cee-ac1b-bdcec5f7d6ac"
       }
     },
     "web": {
@@ -62,6 +65,7 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "owner": "mahendranative"
   }
 }
